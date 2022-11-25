@@ -18,7 +18,7 @@ const NavBar = () => {
                             <li><Link to='/' >Contact Us</Link></li>
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-blueui font-bold text-xl text-xl">FiCar</Link>
+                    <Link className="btn btn-ghost normal-case text-primary font-bold text-xl">FiCar</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu font-semibold menu-horizontal p-0">
@@ -29,7 +29,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link className="drop-shadow font-semibold hover:bg-blueui hover:text-white rounded-md bg-white px-4 py-2">Login</Link>
+                    <Link className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link>
                 </div>
             </div>
 
