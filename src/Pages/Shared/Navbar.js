@@ -3,8 +3,17 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const NavBar = () => {
-    const {user} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     console.log(user);
+    const handleLogOut = () => {
+        const agree = window.confirm('Are you sure to log out? ');
+        if (agree) {
+            logOut()
+                .then(() => { })
+                .catch(err => console.log(err))
+        }
+    }
+
 
     return (
         <div className="max-w-[1200px] mx-auto my-3 ">
@@ -32,25 +41,30 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
-                            </div>
-                        </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
-                        </ul>
-                    </div>
+                    {
+                        user?.email ?
+                            <>
+                                <div className="dropdown dropdown-end">
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 border border-1 border-primary rounded-full">
+                                            <img src={user?.photoURL} />
+                                        </div>
+                                    </label>
+                                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li>
+                                            <Link className="justify-between">
+                                                Profile
+                                                <span className="badge">New</span>
+                                            </Link>
+                                        </li>
+                                        <li><Link>Settings</Link></li>
+                                        <li><Link onClick={handleLogOut}>Logout</Link></li>
+                                    </ul>
+                                </div>
+                            </> :
+                            <Link to='/login' className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link>
+                    }
 
-                    {/* <Link to='/login' className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link> */}
                 </div>
 
             </div>
