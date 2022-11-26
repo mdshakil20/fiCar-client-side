@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade'
 
 const Search = () => {
+
+    const [band, setBand] = useState([]);
+    
     return (
         <div className='md:w-3/4 mx-auto mb-20 '>
             <Fade top delay={100}>
