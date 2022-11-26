@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const NavBar = () => {
+    const {user} = useContext(AuthContext);
+    console.log(user);
 
     return (
         <div className="max-w-[1200px] mx-auto my-3 ">
@@ -20,7 +23,7 @@ const NavBar = () => {
                     </div>
                     <Link className="btn btn-ghost normal-case text-primary font-bold text-xl">FiCar</Link>
                 </div>
-                <div className="navbar-center hidden lg:flex">
+                <div className="ml-0 navbar-center hidden lg:flex">
                     <ul className="menu font-semibold menu-horizontal p-0">
                         <li><Link to='/' >Home</Link></li>
                         <li><Link to='/' >Categories</Link></li>
@@ -29,8 +32,27 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to='/login' className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link>
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img src="https://placeimg.com/80/80/people" />
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            <li>
+                                <a className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </a>
+                            </li>
+                            <li><a>Settings</a></li>
+                            <li><a>Logout</a></li>
+                        </ul>
+                    </div>
+
+                    {/* <Link to='/login' className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link> */}
                 </div>
+
             </div>
 
         </div>
