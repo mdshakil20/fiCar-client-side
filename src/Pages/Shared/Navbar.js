@@ -29,7 +29,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link>
+                    <Link to='/login' className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link>
                 </div>
             </div>
 
