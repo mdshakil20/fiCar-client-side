@@ -32,26 +32,30 @@ const CarsByCategory = () => {
                                         </div>
                                     </div>
 
-                                    <div className='md:pl-5'>
-                                        <h1 className='text-xl md:text-2xl font-bold pt-5 pb-2 '>{car.band} {car.model}</h1>
-                                        <div className='flex items-center pb-3'>
-                                            <h1 className='text-sm font-bold mr-2'>-posted by seller</h1><p><MdVerified size={15} color='blue' /></p>
-                                        </div>
-                                        <div className='flex'>
-                                            <div className='flex items-center'>
-                                                <HiLocationMarker color='gray' size={20} /><span className='ml-2'>Location</span>
+                                    <div className='px-2 md:flex w-full'>
+                                        <div className='md:w-3/4'>
+                                            <h1 className='text-xl md:text-2xl font-bold pt-5 pb-2 '>{car.band} {car.model}</h1>
+                                            <div className='flex items-center pb-3'>
+                                                <h1 className='text-sm font-bold mr-2'>-posted by seller</h1><p><MdVerified size={15} color='blue' /></p>
                                             </div>
-                                            <div className='flex items-center ml-8'>
-                                                <SlCalender color='gray' size={18} /><span className='ml-2'>12 nov 2022</span>
+                                            <div className='flex'>
+                                                <div className='flex items-center'>
+                                                    <HiLocationMarker color='gray' size={20} /><span className='ml-2'>Location</span>
+                                                </div>
+                                                <div className='flex items-center ml-8'>
+                                                    <SlCalender color='gray' size={18} /><span className='ml-2'>12 nov 2022</span>
+                                                </div>
+                                            </div>
+                                            <div className='my-2 pb-3 flex flex-wrap'>
+                                                <p className='px-4 py-px mr-3 mt-2 bg-gray-100 rounded '>2017</p>
+                                                <p className='px-4 py-px mr-3 mt-2 bg-gray-100 rounded '>petrol</p>
+                                                <p className='px-4 py-px mr-3 mt-2 bg-gray-100 rounded '>5 yr used</p>
+                                                <p className='px-4 py-px mr-3 mt-2 bg-gray-100 rounded '>original price 30000</p>
                                             </div>
                                         </div>
-                                        <div className='my-4 flex flex-wrap'>
-                                            <p className='px-4 py-px mr-3 bg-gray-100 rounded '>2017</p>
-                                            <p className='px-4 py-px mr-3 bg-gray-100 rounded '>petrol</p>
-                                            <p className='px-4 py-px mr-3 bg-gray-100 rounded '>5 yr used</p>
-                                            <p className='px-4 py-px mr-3 bg-gray-100 rounded '>original price 30000</p>
+                                        <div className='md:w-1/4 md:relative pb-3 my-2 md:pb-0 '>
+                                            <button className='btn btn-sm bg-blue-500 md:absolute md:bottom-3  lg:right-2 mx-auto text-white  border-transparent hover:bg-primary'>Book Now</button>
                                         </div>
-                                        <button className='btn btn-sm text-black hover:text-white bg-gray-200 border-transparent hover:bg-primary mb-3'>Book Now</button>
                                     </div>
                                 </div>
                             )

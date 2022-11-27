@@ -101,7 +101,10 @@ const Login = () => {
                         <form onSubmit={handleSubmit(handleOnSubmit)}>
                             <input className="mt-3 input input-bordered input-primary w-full " {...register("email")} type="email" placeholder="Email" name='email' required />
                             <input className="mt-3 input input-bordered input-primary w-full " {...register("password")} type="password" placeholder="Password" name='password' required />
-                            <div className="form-control mt-2">
+                            <label className="label mt-2 mb-1">
+                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                            </label>
+                            <div className="form-control mt-1">
                                 {
                                     errorMessage && <p className="text-red-600 text-sm py-2 ">{errorMessage}</p>
                                 }
