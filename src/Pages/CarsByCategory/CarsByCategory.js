@@ -17,7 +17,7 @@ const CarsByCategory = () => {
     // console.log(cars);
     const find = (product) => {
 
-        const name = product.band + " " + product.model;
+        const name = product.brand + " " + product.model;
         setProductName(name);
         setProductPrice(product.price);
 
@@ -56,7 +56,7 @@ const CarsByCategory = () => {
 
                                     <div className='px-2 md:flex w-full'>
                                         <div className='md:w-3/4'>
-                                            <h1 className='text-xl md:text-2xl font-bold pt-5 pb-2 '>{car.band} {car.model}</h1>
+                                            <h1 className='text-xl md:text-2xl font-bold pt-5 pb-2 '>{car.brand} {car.model}</h1>
 
                                             <div className='flex items-center pb-3'>
                                                 <h1 className='text-sm font-bold mr-2'>-posted by seller</h1><p><MdVerified size={15} color='blue' /></p>

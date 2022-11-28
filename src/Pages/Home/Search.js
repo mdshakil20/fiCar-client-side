@@ -4,7 +4,7 @@ import Fade from 'react-reveal/Fade'
 
 const Search = () => {
 
-    const [band, setBand] = useState([]);
+    const [brand, setbrand] = useState([]);
     
     return (
         <div className='md:w-3/4 mx-auto mb-20 '>
@@ -14,7 +14,7 @@ const Search = () => {
                         <h1 className='text-xl text-center md:text-2xl font-bold '>Search the Car You Want, <span className='text-primary'>At Your Price</span></h1>
                         <div className='grid grid-cols-1 md:grid-cols-4 gap-2 my-8'>
                             <select className="min-w-[80px] outline outline-slate-200 rounded-md outline-offset-2 outline-1 py-2 border-r-4 border-white px-3 mx-1 mt-3 md:mt-0 select-bordered">
-                                <option disabled >Band</option>
+                                <option disabled >brand</option>
                                 <option>Normal Apple</option>
                                 <option>Normal Orange</option>
                                 <option>Normal Tomato</option>

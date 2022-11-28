@@ -52,7 +52,8 @@ const Signup = () => {
                         })
                         .catch(err => setErrorF(err.message))
                 }
-            });
+            })
+            .catch(err=>console.log(err.message))
     }
 
     const saveUser = (name, email, phone, location, role, userImg, userCreatedDate) => {

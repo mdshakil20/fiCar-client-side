@@ -63,7 +63,7 @@ const DashboardLayout = () => {
                                                         </Link>
                                                     </li>
                                                     <li className="rounded-sm">
-                                                        <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                        <Link rel="noopener noreferrer" to='/myproducts' className="flex items-center p-2 space-x-3 rounded-md">
                                                             <BsCart2 color="gray" size={20} />
                                                             <span>My Poducts</span>
                                                         </Link>
@@ -85,7 +85,7 @@ const DashboardLayout = () => {
                                                                 </Link>
                                                             </li>
                                                             <li className="rounded-sm">
-                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <Link to='/buyers' rel="noopener noreferrer"  className="flex items-center p-2 space-x-3 rounded-md">
                                                                     <BsCart2 color="gray" size={20} />
                                                                     <span>All Buyers</span>
                                                                 </Link>

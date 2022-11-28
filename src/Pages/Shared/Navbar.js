@@ -41,11 +41,14 @@ const NavBar = () => {
                                 user?.email && (
                                     userRole == 'seller' ? <li><Link to='/sellerDashboard' >DashboradS</Link></li> :
                                         userRole == 'user' ? <li><Link to='/userDashboard' >DashboradU</Link></li> :
-                                            userRole == 'admin' ? <li><Link to='/adminDashboard' >DashboradU</Link></li> :
+                                            userRole == 'admin' ? <li><Link to='/adminDashboard' >DashboradA</Link></li> :
                                                 <li><Link to='/userDashboard' >DashboradUG</Link></li>
                                 )
                             }
                             <li><Link to='/' >Contact Us</Link></li>
+                            {
+                                user?.email && <li><Link onClick={handleLogOut} >Logout</Link></li>
+                            }
                         </ul>
                     </div>
                     <Link className="btn btn-ghost normal-case text-primary font-bold text-xl">FiCar</Link>
@@ -54,6 +57,7 @@ const NavBar = () => {
                     <ul className="menu font-semibold menu-horizontal p-0">
                         <li><Link to='/' >Home</Link></li>
                         <li><Link to='/' >Categories</Link></li>
+                        <li><Link to='/blogs' >Blogs</Link></li>
                         <li><Link to='/' >About Us</Link></li>
                         {
                             user?.email && (
@@ -64,6 +68,9 @@ const NavBar = () => {
                             )
                         }
                         <li><Link to='/' >Contact Us</Link></li>
+                        {
+                            user?.email && <li><Link onClick={handleLogOut} >Logout</Link></li>
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
