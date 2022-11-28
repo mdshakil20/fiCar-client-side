@@ -99,10 +99,10 @@ const MyProducts = () => {
                                                     // ------------checking item unsolde or not ---------------
                                                     myproduct.status == 'unsold' &&
                                                     <> {
-                                                        myproduct.isAdd =='yes' ? 
-                                                        <button onClick={() => makeAdd(myproduct._id)} className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Make Ad</button>
-                                                        :
-                                                        <button  className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Already in Ad</button>
+                                                        myproduct.isAdd =='yes' ? <button  className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Already in Ad</button>
+                                                      :  <button onClick={() => makeAdd(myproduct._id)} className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Make Ad</button>
+                                                        
+                                                        
                                                     }
                                                         
 

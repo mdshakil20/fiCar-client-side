@@ -61,10 +61,10 @@ const NavBar = () => {
                         <li><Link to='/' >About Us</Link></li>
                         {
                             user?.email && (
-                                userRole == 'seller' ? <li><Link to='/sellerDashboard' >DashboradS</Link></li> :
-                                    userRole == 'user' ? <li><Link to='/userDashboard' >DashboradU</Link></li> :
-                                        userRole == 'admin' ? <li><Link to='/adminDashboard' >DashboradU</Link></li> :
-                                            <li><Link to='/userDashboard' >DashboradUG</Link></li>
+                                userRole == 'seller' ? <li><Link to='/sellerDashboard' >Dashborad</Link></li> :
+                                    userRole == 'user' ? <li><Link to='/userDashboard' >Dashborad</Link></li> :
+                                        userRole == 'admin' ? <li><Link to='/adminDashboard' >Dashborad</Link></li> :
+                                            <li><Link to='/userDashboard' >Dashborad</Link></li>
                             )
                         }
                         <li><Link to='/' >Contact Us</Link></li>
