@@ -65,7 +65,7 @@ const AllSeller = () => {
                         </tr>
                     </thead>
                     <tbody>
-
+                        {/* --------- get seller info ----------- */}
                         {
                             sellers.map((seller, i) =>
                                 <tr key={i} >

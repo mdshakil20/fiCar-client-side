@@ -96,6 +96,7 @@ const MyProducts = () => {
                                             <>
                                                 <button onClick={() => deletehandle(myproduct._id)} className='py-px px-2 bg-red-600 text-white rounded'> Delete</button>
                                                 {
+                                                    // ------------checking item unsolde or not ---------------
                                                     myproduct.status == 'unsold' &&
                                                     <> {
                                                         myproduct.isAdd =='yes' ? 
