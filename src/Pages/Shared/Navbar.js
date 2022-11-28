@@ -1,10 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import { AiFillCaretDown } from "react-icons/ai";
+import { useRadioGroup } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 
 const NavBar = () => {
-    const { user, logOut } = useContext(AuthContext);
-    console.log(user);
+    const { user, userinfo, logOut } = useContext(AuthContext);
+    const userRole = userinfo[0]?.role;
+    console.log(userinfo);
+
     const handleLogOut = () => {
         const agree = window.confirm('Are you sure to log out? ');
         if (agree) {
@@ -17,6 +22,11 @@ const NavBar = () => {
 
     return (
         <div className="max-w-[1200px] mx-auto my-3 ">
+            {
+                //   user?.email &&  userinfo.length == 0 &&<div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+                //   user?.email == null && <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+            }
+
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -27,6 +37,14 @@ const NavBar = () => {
                             <li><Link to='/' >Home</Link></li>
                             <li><Link to='/' >Categories</Link></li>
                             <li><Link to='/' >About Us</Link></li>
+                            {
+                                user?.email && (
+                                    userRole == 'seller' ? <li><Link to='/sellerDashboard' >DashboradS</Link></li> :
+                                        userRole == 'user' ? <li><Link to='/userDashboard' >DashboradU</Link></li> :
+                                            userRole == 'admin' ? <li><Link to='/adminDashboard' >DashboradU</Link></li> :
+                                                <li><Link to='/userDashboard' >DashboradUG</Link></li>
+                                )
+                            }
                             <li><Link to='/' >Contact Us</Link></li>
                         </ul>
                     </div>
@@ -37,6 +55,14 @@ const NavBar = () => {
                         <li><Link to='/' >Home</Link></li>
                         <li><Link to='/' >Categories</Link></li>
                         <li><Link to='/' >About Us</Link></li>
+                        {
+                            user?.email && (
+                                userRole == 'seller' ? <li><Link to='/sellerDashboard' >DashboradS</Link></li> :
+                                    userRole == 'user' ? <li><Link to='/userDashboard' >DashboradU</Link></li> :
+                                        userRole == 'admin' ? <li><Link to='/adminDashboard' >DashboradU</Link></li> :
+                                            <li><Link to='/userDashboard' >DashboradUG</Link></li>
+                            )
+                        }
                         <li><Link to='/' >Contact Us</Link></li>
                     </ul>
                 </div>
@@ -44,10 +70,11 @@ const NavBar = () => {
                     {
                         user?.email ?
                             <>
-                                <div className="dropdown dropdown-end">
-                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="dropdown dropdown-end flex items-center">
+                                    <label tabIndex={0} className=" btn btn-ghost btn-circle avatar">
                                         <div className="w-10 border border-1 border-primary rounded-full">
                                             <img src={user?.photoURL} />
+
                                         </div>
                                     </label>
                                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -60,6 +87,9 @@ const NavBar = () => {
                                         <li><Link>Settings</Link></li>
                                         <li><Link onClick={handleLogOut}>Logout</Link></li>
                                     </ul>
+                                    <div>
+                                        <AiFillCaretDown />
+                                    </div>
                                 </div>
                             </> :
                             <Link to='/login' className="drop-shadow font-semibold hover:bg-primary hover:text-white rounded-md bg-white px-4 py-2">Login</Link>

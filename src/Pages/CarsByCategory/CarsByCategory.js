@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { HiLocationMarker } from "react-icons/hi";
 import { SlCalender } from "react-icons/sl";
 import { MdVerified } from "react-icons/md";
+import { AuthContext } from '../../Contexts/AuthProvider';
+import toast from "react-hot-toast";
 
 
 const CarsByCategory = () => {
+    const { user } = useContext(AuthContext);
     const cars = useLoaderData()[0].cars;
-    console.log(cars);
+
+    const [productName, setProductName] = useState('');
+    const [productPrice, setProductPrice] = useState('');
+    // console.log(cars);
+    const find = (product) => {
+
+        const name = product.band + " " + product.model;
+        setProductName(name);
+        setProductPrice(product.price);
+
+    }
+
+    const handleOnSubmit = event => {
+        event.preventDefault();
+        const form = event.target;
+        console.log(form.productName.value);
+        toast(`${productName} is booked.`);
+    }
+
+
     return (
         <div className=' bg-slate-100'>
             <div className="max-w-[1200px] mx-auto my-3 ">
@@ -35,9 +57,11 @@ const CarsByCategory = () => {
                                     <div className='px-2 md:flex w-full'>
                                         <div className='md:w-3/4'>
                                             <h1 className='text-xl md:text-2xl font-bold pt-5 pb-2 '>{car.band} {car.model}</h1>
+
                                             <div className='flex items-center pb-3'>
                                                 <h1 className='text-sm font-bold mr-2'>-posted by seller</h1><p><MdVerified size={15} color='blue' /></p>
                                             </div>
+
                                             <div className='flex'>
                                                 <div className='flex items-center'>
                                                     <HiLocationMarker color='gray' size={20} /><span className='ml-2'>Location</span>
@@ -54,7 +78,63 @@ const CarsByCategory = () => {
                                             </div>
                                         </div>
                                         <div className='md:w-1/4 md:relative pb-3 my-2 md:pb-0 '>
-                                            <button className='btn btn-sm bg-blue-500 md:absolute md:bottom-3  lg:right-2 mx-auto text-white  border-transparent hover:bg-primary'>Book Now</button>
+                                            <label htmlFor="my-modal" onClick={() => find(car)} className='btn btn-sm bg-blue-500 md:absolute md:bottom-3  lg:right-2 mx-auto
+                                             text-white  border-transparent hover:bg-primary'>Book Now</label>
+
+                                            {/* Modal Part */}
+
+                                            <input type="checkbox" id="my-modal" className="modal-toggle" />
+
+
+                                            <div className="modal">
+                                                <div className="modal-box">
+                                                    <form onSubmit={handleOnSubmit}>
+                                                        <div className='w-full md:flex '>
+                                                            <div className="md:flex md:w-1/2 w-full md:mr-1 form-control">
+                                                                <label className="label">
+                                                                    <span className="label-text">Product Name</span>
+                                                                </label>
+                                                                <input type="text" name="productName" defaultValue={productName} className="-mt-2 input input-bordered" disabled />
+                                                            </div>
+                                                            <div className="md:flex md:w-1/2 w-full md:ml-1 form-control">
+                                                                <label className="label">
+                                                                    <span className="label-text">Prosuct Price</span>
+                                                                </label>
+                                                                <input type="text" name="productPrice" defaultValue={productPrice} className="-mt-2 input input-bordered" disabled />
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-control">
+                                                            <label className="label">
+                                                                <span className="label-text">Your Name</span>
+                                                            </label>
+                                                            <input type="text" name="buyerName" defaultValue={user?.displayName} className="-mt-2 input input-bordered" disabled />
+                                                        </div>
+                                                        <div className="form-control">
+                                                            <label className="label">
+                                                                <span className="label-text">Your Email</span>
+                                                            </label>
+                                                            <input type="text" name="buyerEmail" defaultValue={user?.email} className="-mt-2 input input-bordered" disabled />
+                                                        </div>
+                                                        <div className="form-control">
+                                                            <label className="label">
+                                                                <span className="label-text">Your Phone Number</span>
+                                                            </label>
+                                                            <input type="text" name="buyerPhone" placeholder="Enter your phone number" className="-mt-2 input input-bordered" required />
+                                                        </div>
+                                                        <div className="form-control">
+                                                            <label className="label">
+                                                                <span className="label-text">Meeting Location</span>
+                                                            </label>
+                                                            <input type="text" name="MeetLocation" placeholder="Enter Location" className="-mt-2 input input-bordered" required />
+                                                        </div>
+
+                                                        <div className="modal-action">
+                                                            <button className="btn btn-primary">Submit</button>
+                                                            <label htmlFor="my-modal" className="btn">Close</label>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +143,7 @@ const CarsByCategory = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

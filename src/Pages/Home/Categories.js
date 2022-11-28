@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Categories = () => {
+    const {user} = useContext(AuthContext);
     const [dealy, setDelay] = useState(500);
     const [categories, setCategories] = useState([]);
+    const [cat, setCat] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:5000/homeCategories')
@@ -12,7 +15,13 @@ const Categories = () => {
             .then(data => setCategories(data))
     }, [])
 
-    console.log(categories);
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/kothay/:${user?.email}`)
+    //         .then(res => res.json())
+    //         .then(data => setCat(data))
+    // }, [])
+
+    // console.log("vaire vai: ", cat);
 
     return (
         <div className=' bg-slate-50 mb-20'>

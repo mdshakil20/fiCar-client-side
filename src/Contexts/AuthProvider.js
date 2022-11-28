@@ -8,6 +8,8 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [userinfo, setUserinfo] = useState([]);
+
     // console.log(user);
 
     const createUser = (email, password) => {
@@ -43,6 +45,15 @@ const AuthProvider = ({ children }) => {
         return () => unsuscriber();
     }, [])
 
+    console.log(user?.email);
+        useEffect(() => {
+            fetch(`http://localhost:5000/user/${user?.email}`)
+                .then(res => res.json())
+                .then(data => setUserinfo(data))
+        }, [user?.email])
+
+    console.log("holo ? ", userinfo);
+
     const authInfo = {
         createUser,
         login,
@@ -51,7 +62,7 @@ const AuthProvider = ({ children }) => {
         setUserInfo,
         loading,
         loginWithGoogle,
-
+        userinfo,
     }
 
     return (
