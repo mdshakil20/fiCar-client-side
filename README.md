@@ -13,3 +13,8 @@ Live website Link: https://ficar.netlify.app/
 6. Design that is responsive.
 
 
+adminEmail: admin@gmail.com
+adminPassword: admin1
+
+
+
