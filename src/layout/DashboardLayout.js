@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
-import { GrCart } from "react-icons/gr";
-import { BsCart2 } from "react-icons/bs";
-import { AiOutlineHome } from "react-icons/ai";
+import { BsCart2, BsPlusCircle } from "react-icons/bs";
+import { AiOutlineHome, AiOutlineHeart } from "react-icons/ai";
 
 const DashboardLayout = () => {
     const { user, userinfo, logOut } = useContext(AuthContext);
@@ -19,17 +18,17 @@ const DashboardLayout = () => {
     }
 
     return (
-        <div>
+        <div className="max-w-[1200px] mx-auto bg-gray-800 ">
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content ">
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Menu</label>
+                    <label htmlFor="my-drawer-2" className="btn btn-primary ml-3 my-1 drawer-button lg:hidden">Menu</label>
                     <Outlet></Outlet>
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-                        <div className="flex flex-col h-full p-3 w-60 bg-gray-900 text-gray-100">
+                    <ul className="menu px-4 w-64 bg-base-100 text-base-content">
+                        <div className="flex flex-col h-full p-3 pt-5 w-60 bg-gray-900 text-gray-100">
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <h2>Dashboard</h2>
@@ -53,14 +52,67 @@ const DashboardLayout = () => {
                                                 <span>Home</span>
                                             </Link>
                                         </li>
-                                        <li className="rounded-sm">
-                                            <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current text-gray-400">
-                                                    <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
-                                                </svg>
-                                                <span>Search</span>
-                                            </Link>
-                                        </li>
+
+                                        {
+                                            userRole == 'seller' ?
+                                                <>
+                                                    <li className="rounded-sm">
+                                                        <Link rel="noopener noreferrer" to='/addProduct' className="flex items-center p-2 space-x-3 rounded-md">
+                                                            <BsPlusCircle color="gray" size={20} />
+                                                            <span>Add Product</span>
+                                                        </Link>
+                                                    </li>
+                                                    <li className="rounded-sm">
+                                                        <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                            <BsCart2 color="gray" size={20} />
+                                                            <span>My Poducts</span>
+                                                        </Link>
+                                                    </li>
+                                                    <li className="rounded-sm">
+                                                        <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                            <BsCart2 color="gray" size={20} />
+                                                            <span>My Buyers</span>
+                                                        </Link>
+                                                    </li>
+                                                </> :
+                                                (
+                                                    userRole == 'admin' ?
+                                                        <>
+                                                            <li className="rounded-sm">
+                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                    <BsCart2 color="gray" size={20} />
+                                                                    <span>All Users</span>
+                                                                </Link>
+                                                            </li>
+                                                            <li className="rounded-sm">
+                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                    <BsCart2 color="gray" size={20} />
+                                                                    <span>All Buyers</span>
+                                                                </Link>
+                                                            </li>
+                                                            <li className="rounded-sm">
+                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                    <BsCart2 color="gray" size={20} />
+                                                                    <span>Reported Items</span>
+                                                                </Link>
+                                                            </li>
+                                                        </> :
+                                                        <>
+                                                            <li className="rounded-sm">
+                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                    <BsCart2 color="gray" size={20} />
+                                                                    <span>My orders</span>
+                                                                </Link>
+                                                            </li>
+                                                            <li className="rounded-sm bg-gray-800 text-gray-50">
+                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                    <AiOutlineHeart size={20} color='gray' />
+                                                                    <span>Wishlist</span>
+                                                                </Link>
+                                                            </li>
+                                                        </>
+                                                )
+                                        }
                                         <li className="rounded-sm">
                                             <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current text-gray-400">
@@ -68,21 +120,6 @@ const DashboardLayout = () => {
                                                     <path d="M60.185,317.476a220.491,220.491,0,0,0,34.808-63.023l4.22-11.975-9.207-7.066C62.918,214.626,48,186.728,48,156.857,48,96.833,109.009,48,184,48c55.168,0,102.767,26.43,124.077,64.3,3.957-.192,7.931-.3,11.923-.3q12.027,0,23.834,1.167c-8.235-21.335-22.537-40.811-42.2-56.961C270.072,30.279,228.3,16,184,16S97.928,30.279,66.364,56.206C33.886,82.885,16,118.63,16,156.857c0,35.8,16.352,70.295,45.25,96.243a188.4,188.4,0,0,1-40.563,60.729L16,318.515V352H32a190.643,190.643,0,0,0,85.231-20.125,157.3,157.3,0,0,1-5.071-33.645A158.729,158.729,0,0,1,60.185,317.476Z"></path>
                                                 </svg>
                                                 <span>Chat</span>
-                                            </Link>
-                                        </li>
-                                        <li className="rounded-sm">
-                                            <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
-                                                <BsCart2 color="gray" size={20} />
-                                                <span>My orders</span>
-                                            </Link>
-                                        </li>
-                                        
-                                        <li className="rounded-sm bg-gray-800 text-gray-50">
-                                            <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current text-gray-400">
-                                                    <path d="M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z"></path>
-                                                </svg>
-                                                <span>Wishlist</span>
                                             </Link>
                                         </li>
                                         <li className="rounded-sm">
