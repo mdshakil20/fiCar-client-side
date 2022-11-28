@@ -5,6 +5,7 @@ import CarsByCategory from "../Pages/CarsByCategory/CarsByCategory";
 import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import AllBuyer from "../Pages/Dashboard/AdminDashboard/AllBuyer";
+import AllSeller from "../Pages/Dashboard/AdminDashboard/AllSeller";
 import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
 import SellerDashborad from "../Pages/Dashboard/SellerDashborad/SellerDashborad";
 import UserDashborad from "../Pages/Dashboard/UserDashborad/UserDashborad";
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
             {
                 path:'/buyers',
                 element:<AllBuyer></AllBuyer>
+            },
+            {
+                path:'/sellers',
+                element:<AllSeller></AllSeller>
             },
         ]
     },

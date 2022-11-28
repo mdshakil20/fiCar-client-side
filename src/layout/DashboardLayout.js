@@ -79,9 +79,9 @@ const DashboardLayout = () => {
                                                     userRole == 'admin' ?
                                                         <>
                                                             <li className="rounded-sm">
-                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <Link rel="noopener noreferrer" to='/sellers' className="flex items-center p-2 space-x-3 rounded-md">
                                                                     <BsCart2 color="gray" size={20} />
-                                                                    <span>All Users</span>
+                                                                    <span>All Seller</span>
                                                                 </Link>
                                                             </li>
                                                             <li className="rounded-sm">

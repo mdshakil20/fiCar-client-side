@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const AllBuyer = () => {
+const AllSeller = () => {
 
-    const [buyers, setBuyers] = useState([]);
+    const [sellers, setSeller] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/buyers')
+        fetch('http://localhost:5000/seller')
             .then(res => res.json())
-            .then(data => setBuyers(data))
+            .then(data => setSeller(data))
     }, [])
 
     const deletehandle = (id) => {
@@ -20,8 +20,8 @@ const AllBuyer = () => {
                 .then(data => {
                     if (data.deletedCount > 0) {
                         toast('Deleted successfully.');
-                        const remainingmyUser = buyers.filter(filtered => filtered._id !== id);
-                        setBuyers(remainingmyUser);
+                        const remainingmyUser = sellers.filter(filtered => filtered._id !== id);
+                        setSeller(remainingmyUser);
                     }
                 }
                 )
@@ -31,7 +31,7 @@ const AllBuyer = () => {
 
     return (
         <div className=' mx-3 mt-5'>
-            <h4 className='text-xl text-white my-3'>All Buyers</h4>
+            <h4 className='text-xl text-white my-3'>All Selllers</h4>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
@@ -48,7 +48,7 @@ const AllBuyer = () => {
                     <tbody>
 
                         {
-                            buyers.map((buyer, i) =>
+                            sellers.map((seller, i) =>
                                 <tr key={i} >
                                     <td>
                                         {i + 1}
@@ -56,16 +56,23 @@ const AllBuyer = () => {
                                     <td>
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
-                                                <img src={buyer.userImg} alt="" />
+                                                <img src={seller.userImg} alt="" />
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{buyer.name}</td>
-                                    <td>{buyer.email}</td>
-                                    <td>{buyer.phone}</td>
-                                    <td>{buyer.location}</td>
+                                    <td>{seller.name}</td>
+                                    <td>{seller.email}</td>
+                                    <td>{seller.phone}</td>
+                                    <td>{seller.location}</td>
                                     <td>
-                                        <button onClick={() => deletehandle(buyer._id)} className='py-px px-2 bg-red-600 text-white rounded'> Delete</button>
+                                        <>
+                                            <button onClick={() => deletehandle(seller._id)} className='py-px px-2 bg-red-600 text-white rounded'> Delete</button>
+                                            {
+                                                seller.isVerify == null ? 
+                                                <button className="ml-2 py-px px-2 bg-green-600 text-white rounded">Verify</button>:
+                                                <button className="ml-2 py-px px-2 bg-gray-200 text-white rounded" disabled>Verifyed</button>
+                                            }
+                                        </>
                                     </td>
                                 </tr>
                             )
@@ -77,4 +84,4 @@ const AllBuyer = () => {
     );
 };
 
-export default AllBuyer;
+export default AllSeller;
