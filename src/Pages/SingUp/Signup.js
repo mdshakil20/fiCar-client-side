@@ -68,7 +68,7 @@ const Signup = () => {
             isVerify: null,
             notification: []
         };
-        fetch(`http://localhost:5000/users`, {
+        fetch(`https://fi-car-server.vercel.app/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -94,7 +94,7 @@ const Signup = () => {
     }
 
     // const getUserToken = email => {
-    //     fetch(`http://localhost:5000/jwt?email=${email}`)
+    //     fetch(`https://fi-car-server.vercel.app/jwt?email=${email}`)
     //         .then(res => res.json())
     //         .then(data => {
     //             if (data.accessToken) {

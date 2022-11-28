@@ -14,7 +14,7 @@ const AddProduct = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     useEffect(() => {
-        fetch('http://localhost:5000/allCategory')
+        fetch('https://fi-car-server.vercel.app/allCategory')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
@@ -57,6 +57,7 @@ const AddProduct = () => {
             });
     }
     const adPostDb =(productImg,brand,model,manufactureYear,useYear,originalPrice,askingPrice,description,color,category,fuelType,location,phone,condition)=>{
+        const today = new Date().toDateString();
         const productInfo =
         {
             productImg : productImg,
@@ -75,9 +76,11 @@ const AddProduct = () => {
             condition : condition,
             status:'unsold',
             sellerName: user?.displayName,
-            sellerEmail: user?.email
+            sellerEmail: user?.email,
+            postDate:today,
+            isAd:null
         }
-        fetch(`http://localhost:5000/products`, {
+        fetch(`https://fi-car-server.vercel.app/products`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

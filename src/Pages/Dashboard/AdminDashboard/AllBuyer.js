@@ -4,8 +4,9 @@ import toast from 'react-hot-toast';
 const AllBuyer = () => {
 
     const [buyers, setBuyers] = useState([]);
+
     useEffect(() => {
-        fetch('http://localhost:5000/buyers')
+        fetch('https://fi-car-server.vercel.app/buyers')
             .then(res => res.json())
             .then(data => setBuyers(data))
     }, [])
@@ -13,7 +14,7 @@ const AllBuyer = () => {
     const deletehandle = (id) => {
         const agree = window.confirm('Are you sure to delete this user?');
         if (agree) {
-            fetch(`http://localhost:5000/user/delete?id=${id}`, {
+            fetch(`https://fi-car-server.vercel.app/user/delete?id=${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

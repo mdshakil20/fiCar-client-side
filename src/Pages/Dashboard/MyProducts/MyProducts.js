@@ -11,7 +11,7 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/products?email=${user.email}`)
+        fetch(`https://fi-car-server.vercel.app/products?email=${user.email}`)
             .then(res => res.json())
             .then(data => setMyProducts(data))
     }, []);
@@ -19,7 +19,7 @@ const MyProducts = () => {
     const deletehandle = (did) => {
         const agree = window.confirm('are you sure to delete it?');
         if (agree) {
-            fetch(`http://localhost:5000/products/delete?id=${did}`, {
+            fetch(`https://fi-car-server.vercel.app/products/delete?id=${did}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -32,6 +32,26 @@ const MyProducts = () => {
                 }
                 )
         }
+    }
+
+    const makeAdd = id => {
+        fetch(`https://fi-car-server.vercel.app/makeAd?id=${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast('Added in Advertisment Successfully');
+                    fetch(`https://fi-car-server.vercel.app/products?email=${user.email}`)
+                        .then(res => res.json())
+                        .then(data => setMyProducts(data))
+                }
+            }
+            )
+
     }
 
 
@@ -76,7 +96,16 @@ const MyProducts = () => {
                                             <>
                                                 <button onClick={() => deletehandle(myproduct._id)} className='py-px px-2 bg-red-600 text-white rounded'> Delete</button>
                                                 {
-                                                    myproduct.status == 'unsold' && <button className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Make Ad</button>
+                                                    myproduct.status == 'unsold' &&
+                                                    <> {
+                                                        myproduct.isAdd =='yes' ? 
+                                                        <button onClick={() => makeAdd(myproduct._id)} className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Make Ad</button>
+                                                        :
+                                                        <button  className='ml-2 py-px px-2 bg-green-600 text-white rounded'>Already in Ad</button>
+                                                    }
+                                                        
+
+                                                    </>
                                                 }
 
                                             </>

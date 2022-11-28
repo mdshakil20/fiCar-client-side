@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
@@ -6,22 +7,17 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 const Categories = () => {
     const {user} = useContext(AuthContext);
     const [dealy, setDelay] = useState(500);
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [cat, setCat] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/homeCategories')
-            .then(res => res.json())
-            .then(data => setCategories(data))
-    }, [])
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/kothay/:${user?.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setCat(data))
-    // }, [])
-
-    // console.log("vaire vai: ", cat);
+    const { data: categories = [], refetch, isLoading } = useQuery({
+        queryKey: ['categories'],
+        queryFn: async () => {
+            const res = await fetch(`https://fi-car-server.vercel.app/homeCategories`)
+            const data = await res.json();
+            return data;
+        }
+    })
 
     return (
         <div className=' bg-slate-50 mb-20'>
@@ -30,7 +26,7 @@ const Categories = () => {
                 <div className='my-14  mx-5 grid grid-cols-1 md:grid-cols-3 gap-2'>
                     {
                         categories.map(category =>
-                            <Link to={`/category/${category._id}`} key={category._id} className="bg-base-100 shadow-xl hover:shadow-2xl  hover:border-blue-200 border-transparent border-2 hover:border-current mx-auto rounded-lg ">
+                            <Link to={`/category/${category.name}`} key={category._id} className="bg-base-100 shadow-xl hover:shadow-2xl  hover:border-blue-200 border-transparent border-2 hover:border-current mx-auto rounded-lg ">
                                 
                                 <Fade left delay={dealy}>
                                     <figure className="px-8 pt-10">

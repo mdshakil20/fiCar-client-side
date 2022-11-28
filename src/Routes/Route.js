@@ -42,9 +42,9 @@ export const router = createBrowserRouter([
                 element: <UserDashborad></UserDashborad>
             },
             {
-                path:'/category/:id',
+                path:'/category/:name',
                 element: <PrivateRoute><CarsByCategory></CarsByCategory></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
+                loader: ({ params }) => fetch(`https://fi-car-server.vercel.app/category/${params.name}`)
             },
             {
                 path:'*',

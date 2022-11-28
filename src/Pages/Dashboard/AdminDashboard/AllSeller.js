@@ -5,7 +5,7 @@ const AllSeller = () => {
 
     const [sellers, setSeller] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/seller')
+        fetch('https://fi-car-server.vercel.app/seller')
             .then(res => res.json())
             .then(data => setSeller(data))
     }, [])
@@ -13,7 +13,7 @@ const AllSeller = () => {
     const deletehandle = (id) => {
         const agree = window.confirm('Are you sure to delete this user?');
         if (agree) {
-            fetch(`http://localhost:5000/user/delete?id=${id}`, {
+            fetch(`https://fi-car-server.vercel.app/user/delete?id=${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -26,6 +26,25 @@ const AllSeller = () => {
                 }
                 )
         }
+    }
+
+    const makeVarify = id => {
+        fetch(`https://fi-car-server.vercel.app/seller/verify?id=${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast('Verify Successfully');
+                    fetch('https://fi-car-server.vercel.app/seller')
+                        .then(res => res.json())
+                        .then(data => setSeller(data))
+                }
+            }
+            )
 
     }
 
@@ -68,9 +87,9 @@ const AllSeller = () => {
                                         <>
                                             <button onClick={() => deletehandle(seller._id)} className='py-px px-2 bg-red-600 text-white rounded'> Delete</button>
                                             {
-                                                seller.isVerify == null ? 
-                                                <button className="ml-2 py-px px-2 bg-green-600 text-white rounded">Verify</button>:
-                                                <button className="ml-2 py-px px-2 bg-gray-200 text-white rounded" disabled>Verifyed</button>
+                                                seller.isVerify == null ?
+                                                    <button onClick={() => makeVarify(seller._id)} className="ml-2 py-px px-2 bg-green-600 text-white rounded">Verify</button> :
+                                                    <button className="ml-2 py-px px-2 bg-gray-400 text-white rounded" disabled>Verified</button>
                                             }
                                         </>
                                     </td>
