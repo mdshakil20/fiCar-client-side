@@ -79,6 +79,7 @@ const CarsByCategory = () => {
                                             </div>
                                         </div>
                                         <div className='md:w-1/4 md:relative pb-3 my-2 md:pb-0 '>
+                                            <button className='bg-primary text-white '> Report</button>
                                             <label htmlFor="my-modal" onClick={() => find(car)} className='btn btn-sm bg-blue-500 md:absolute md:bottom-3  lg:right-2 mx-auto
                                              text-white  border-transparent hover:bg-primary'>Book Now</label>
 
