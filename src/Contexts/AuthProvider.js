@@ -7,6 +7,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
+    const [uiloaded, setUiLoaded] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userinfo, setUserinfo] = useState([]);
 
@@ -27,12 +28,12 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     }
 
-    const logOut =()=>{
+    const logOut = () => {
         setLoading(true);
         return signOut(auth);
     }
 
-    const setUserInfo=(updateInfo)=>{
+    const setUserInfo = (updateInfo) => {
         setLoading(true);
         return updateProfile(auth.currentUser, updateInfo);
     }
@@ -45,16 +46,16 @@ const AuthProvider = ({ children }) => {
         return () => unsuscriber();
     }, [])
 
-    console.log(user?.email);
-        useEffect(() => {
-            fetch(`https://fi-car-server.vercel.app/user/${user?.email}`)
-                .then(res => res.json())
-                .then(data => setUserinfo(data))
-        }, [user?.email])
+    useEffect(() => {
+        fetch(`https://fi-car-server.vercel.app/user/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setUserinfo(data))
+    }, [user?.email])
 
-    console.log("holo ? ", userinfo);
+    // console.log("holo ? ", userinfo);
 
     const authInfo = {
+        setLoading,
         createUser,
         login,
         user,
@@ -63,6 +64,8 @@ const AuthProvider = ({ children }) => {
         loading,
         loginWithGoogle,
         userinfo,
+        setUiLoaded,
+        uiloaded
     }
 
     return (

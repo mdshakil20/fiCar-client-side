@@ -1,12 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
 import { BsCart2, BsPlusCircle } from "react-icons/bs";
 import { AiOutlineHome, AiOutlineHeart } from "react-icons/ai";
+import useTitle from '../Pages/UseTitle/UseTitle';
 
 const DashboardLayout = () => {
-    const { user, userinfo, logOut } = useContext(AuthContext);
-    const userRole = userinfo[0]?.role;
+    useTitle("Dashboard")
+    const { user, logOut, setLoading } = useContext(AuthContext);
+    const [ur, setUr] = useState([])
+
+    useEffect(() => {
+        fetch(`https://fi-car-server.vercel.app/user/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setUr(data))
+    }, []);
+
+
+    setLoading(false);
+    console.log(ur);
+    const userRole = ur[0]?.role;
+    console.log(ur[0]?.role);
+    // const [userRole, setUserRole ] = useState(userinfo[0]?.role);
+
 
     const handleLogOut = () => {
         const agree = window.confirm('Are you sure to log out? ');
@@ -53,8 +69,9 @@ const DashboardLayout = () => {
                                             </Link>
                                         </li>
 
+
                                         {
-                                            userRole == 'seller' ?
+                                            userRole === "seller" ?
                                                 <>
                                                     <li className="rounded-sm">
                                                         <Link rel="noopener noreferrer" to='/addProduct' className="flex items-center p-2 space-x-3 rounded-md">
@@ -74,45 +91,47 @@ const DashboardLayout = () => {
                                                             <span>My Buyers</span>
                                                         </Link>
                                                     </li>
-                                                </> :
-                                                (
-                                                    userRole == 'admin' ?
-                                                        <>
-                                                            <li className="rounded-sm">
-                                                                <Link rel="noopener noreferrer" to='/sellers' className="flex items-center p-2 space-x-3 rounded-md">
-                                                                    <BsCart2 color="gray" size={20} />
-                                                                    <span>All Seller</span>
-                                                                </Link>
-                                                            </li>
-                                                            <li className="rounded-sm">
-                                                                <Link to='/buyers' rel="noopener noreferrer"  className="flex items-center p-2 space-x-3 rounded-md">
-                                                                    <BsCart2 color="gray" size={20} />
-                                                                    <span>All Buyers</span>
-                                                                </Link>
-                                                            </li>
-                                                            <li className="rounded-sm">
-                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
-                                                                    <BsCart2 color="gray" size={20} />
-                                                                    <span>Reported Items</span>
-                                                                </Link>
-                                                            </li>
-                                                        </> :
-                                                        <>
-                                                            <li className="rounded-sm">
-                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
-                                                                    <BsCart2 color="gray" size={20} />
-                                                                    <span>My orders</span>
-                                                                </Link>
-                                                            </li>
-                                                            <li className="rounded-sm bg-gray-800 text-gray-50">
-                                                                <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
-                                                                    <AiOutlineHeart size={20} color='gray' />
-                                                                    <span>Wishlist</span>
-                                                                </Link>
-                                                            </li>
-                                                        </>
-                                                )
+                                                </>
+                                                :
+
+                                                (userRole === "admin" ?
+                                                    <>
+                                                        <li className="rounded-sm">
+                                                            <Link rel="noopener noreferrer" to='/sellers' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <BsCart2 color="gray" size={20} />
+                                                                <span>All Seller</span>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="rounded-sm">
+                                                            <Link to='/buyers' rel="noopener noreferrer" className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <BsCart2 color="gray" size={20} />
+                                                                <span>All Buyers</span>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="rounded-sm">
+                                                            <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <BsCart2 color="gray" size={20} />
+                                                                <span>Reported Items</span>
+                                                            </Link>
+                                                        </li>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <li className="rounded-sm">
+                                                            <Link rel="noopener noreferrer" to='/myorder' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <BsCart2 color="gray" size={20} />
+                                                                <span>My orders</span>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="rounded-sm bg-gray-800 text-gray-50">
+                                                            <Link rel="noopener noreferrer" to='/wishList' className="flex items-center p-2 space-x-3 rounded-md">
+                                                                <AiOutlineHeart size={20} color='gray' />
+                                                                <span>Wishlist</span>
+                                                            </Link>
+                                                        </li>
+                                                    </>)
                                         }
+
                                         <li className="rounded-sm">
                                             <Link rel="noopener noreferrer" to='' className="flex items-center p-2 space-x-3 rounded-md">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current text-gray-400">

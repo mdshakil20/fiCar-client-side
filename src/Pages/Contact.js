@@ -1,8 +1,10 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
+import useTitle from './UseTitle/UseTitle';
 
 
 const Contact = () => {
+    useTitle("Contact");
     return (
         <div className="max-w-[1200px] mx-auto my-3 ">
             <div className=" mt-20">

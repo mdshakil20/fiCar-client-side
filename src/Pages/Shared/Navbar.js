@@ -35,8 +35,8 @@ const NavBar = () => {
                         </label>
                         <ul tabIndex={0} className="menu font-semibold menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><Link to='/' >Home</Link></li>
-                            <li><Link to='/' >Categories</Link></li>
-                            <li><Link to='/' >About Us</Link></li>
+                            <li><Link to='/category' >Categories</Link></li>
+                            {/* <li><Link to='/' >About Us</Link></li> */}
                             {
                                 user?.email && (
                                     userRole == 'seller' ? <li><Link to='/sellerDashboard' >Dashborad</Link></li> :
@@ -45,20 +45,20 @@ const NavBar = () => {
                                                 <li><Link to='/userDashboard' >Dashborad</Link></li>
                                 )
                             }
-                            <li><Link to='/' >Contact Us</Link></li>
+                            <li><Link to='/contact' >Contact Us</Link></li>
                             {
                                 user?.email && <li><Link onClick={handleLogOut} >Logout</Link></li>
                             }
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-primary font-bold text-xl">FiCar</Link>
+                    <Link to='/' className="btn btn-ghost normal-case text-primary font-bold text-xl">FiCar</Link>
                 </div>
                 <div className="ml-0 navbar-center hidden lg:flex">
                     <ul className="menu font-semibold menu-horizontal p-0">
                         <li><Link to='/' >Home</Link></li>
-                        <li><Link to='/' >Categories</Link></li>
+                        <li><Link to='/category' >Categories</Link></li>
                         <li><Link to='/blogs' >Blogs</Link></li>
-                        <li><Link to='/' >About Us</Link></li>
+                        {/* <li><Link to='/' >About Us</Link></li> */}
                         {
                             user?.email && (
                                 userRole == 'seller' ? <li><Link to='/sellerDashboard' >Dashborad</Link></li> :
@@ -67,7 +67,7 @@ const NavBar = () => {
                                             <li><Link to='/userDashboard' >Dashborad</Link></li>
                             )
                         }
-                        <li><Link to='/' >Contact Us</Link></li>
+                        <li><Link to='/contact' >Contact Us</Link></li>
                         {
                             user?.email && <li><Link onClick={handleLogOut} >Logout</Link></li>
                         }

@@ -28,7 +28,22 @@ const AllSeller = () => {
         }
     }
 
-    const makeVarify = id => {
+    const makeVarify =( id, email) => {
+        fetch(`https://fi-car-server.vercel.app/verifyInProduct?email=${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast('Verify in Product Successfully'); 
+                }
+            }
+            )
+            
+        //update in user collection 
         fetch(`https://fi-car-server.vercel.app/seller/verify?id=${id}`, {
             method: 'PUT',
             headers: {
@@ -39,6 +54,8 @@ const AllSeller = () => {
             .then(data => {
                 if (data.acknowledged) {
                     toast('Verify Successfully');
+
+
                     fetch('https://fi-car-server.vercel.app/seller')
                         .then(res => res.json())
                         .then(data => setSeller(data))
@@ -87,8 +104,8 @@ const AllSeller = () => {
                                         <>
                                             <button onClick={() => deletehandle(seller._id)} className='py-px px-2 bg-red-600 text-white rounded'> Delete</button>
                                             {
-                                                seller.isVerify == null ?
-                                                    <button onClick={() => makeVarify(seller._id)} className="ml-2 py-px px-2 bg-green-600 text-white rounded">Verify</button> :
+                                                seller.isVerify != 'verified' ?
+                                                    <button onClick={() => makeVarify(seller._id, seller.email)} className="ml-2 py-px px-2 bg-green-600 text-white rounded">Make verified</button> :
                                                     <button className="ml-2 py-px px-2 bg-gray-400 text-white rounded" disabled>Verified</button>
                                             }
                                         </>

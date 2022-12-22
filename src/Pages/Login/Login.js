@@ -6,9 +6,11 @@ import { Fade } from "react-reveal";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import toast from "react-hot-toast";
+import useTitle from "../UseTitle/UseTitle";
 
 
 const Login = () => {
+    useTitle("Login");
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const googleProvider = new GoogleAuthProvider();

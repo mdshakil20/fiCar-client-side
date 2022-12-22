@@ -3,13 +3,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import useTitle from '../UseTitle/UseTitle';
 
 const Categories = () => {
     const {user} = useContext(AuthContext);
-    const [dealy, setDelay] = useState(500);
-    // const [categories, setCategories] = useState([]);
+    const [dealy, setDelay] = useState(500);    
     const [cat, setCat] = useState([]);
-
+    useTitle("Categories");
     const { data: categories = [], refetch, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {

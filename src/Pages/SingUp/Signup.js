@@ -4,17 +4,20 @@ import Fade from 'react-reveal/Fade';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import toast from "react-hot-toast";
+import useTitle from '../UseTitle/UseTitle';
 
 const Signup = () => {
+    useTitle("SignUp");
     const navigate = useNavigate();
     const [errorF, setErrorF] = useState('');
+    const [spinner, setSpinner] = useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const { createUser, setUserInfo, login } = useContext(AuthContext);
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
 
     const handleOnSubmit = data => {
-
+        setSpinner(true);
         const image = data.userImg[0];
         const formData = new FormData();
         formData.append('image', image);
@@ -48,12 +51,18 @@ const Signup = () => {
                                 .then(() => {
                                     saveUser(data.name, data.email, data.phone, data.location, data.role, imgData.data.url, today);
                                 })
-                                .catch(err => setErrorF(err))
+                                .catch(err => {
+                                    setSpinner(false);
+                                    setErrorF(err.message)
+                                })
                         })
-                        .catch(err => setErrorF(err.message))
+                        .catch(err => {
+                            setSpinner(false);
+                            setErrorF(err.message)
+                        })
                 }
             })
-            .catch(err=>console.log(err.message))
+            .catch(err => console.log(err.message))
     }
 
     const saveUser = (name, email, phone, location, role, userImg, userCreatedDate) => {
@@ -78,14 +87,16 @@ const Signup = () => {
             .then(res => res.json())
             .then(data => {
                 // getUserToken(email)
+                setSpinner(false);
                 toast('User Created Successfully.')
                 login(data.email, data.password)
                     .then(result => {
                         const user = result.user;
                         setErrorF('');
                         if (user) {
+                            navigate('/');
                             toast('Welcome to FiCar');
-                            navigate('/')
+                           
                         }
                     })
                     .catch(err => setErrorF(err.message));
@@ -104,7 +115,14 @@ const Signup = () => {
     //         })
     //  }
     return (
-        <div className="max-w-[1200px] mx-auto my-2 pb-24 px-3 md:py-8 ">
+        <div className="max-w-[1200px] relative mx-auto my-2 pb-24 px-3 md:py-8 ">
+            {
+                spinner &&
+                <div className='absolute flex w-full mt-10'>
+                    <div className="w-16 h-16 border-4 mx-auto border-dashed rounded-full animate-spin border-primary"></div>
+                </div>
+            }
+
             <h1 className='text-3xl text-primary text-center font-bold'>Welcome to FiCar</h1>
             <div className='w-full flex mt-3 mb-2'>
                 <label for="Toggle3" className=" mx-auto inline-flex items-center p-2 rounded-md cursor-pointer dark:text-gray-800">
@@ -164,7 +182,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-//  https://i.ibb.co/yBmSPTZ/Group-12.png
-// https://i.ibb.co/3y5DXC3/Group-13.png
-// https://i.ibb.co/1L5LrYC/unsplash-Pto-Av-YUWn7-I.png

@@ -1,6 +1,8 @@
 import React from 'react';
+import useTitle from '../UseTitle/UseTitle';
 
 const Blogs = () => {
+    useTitle("Blog");
     return (
         <div className="max-w-[1200px] mx-auto my-3 ">
                 <div className='grid grid-cols-1 md:grid-cols-2'>

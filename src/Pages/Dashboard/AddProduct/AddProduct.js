@@ -7,12 +7,19 @@ import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const AddProduct = () => {
     const navigate = useNavigate();
+     const {user, userinfo} = useContext(AuthContext);
     const [errorF, setErrorF] = useState('');
-    const {user} = useContext(AuthContext);
+    const [spinner, setSpinner] = useState(false);
+   
     const [categories, setCategories] = useState([]);
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
+
+    const usetInfoDetails = userinfo[0];
+    const isVerify = usetInfoDetails?.isVerify;
+
+    //get user info
     useEffect(() => {
         fetch('https://fi-car-server.vercel.app/allCategory')
             .then(res => res.json())
@@ -20,7 +27,7 @@ const AddProduct = () => {
     }, [])
 
     const handleOnSubmit = data => {
-
+        setSpinner(true);
         const image = data.productImg[0];
         const formData = new FormData();
         formData.append('image', image);
@@ -78,7 +85,8 @@ const AddProduct = () => {
             sellerName: user?.displayName,
             sellerEmail: user?.email,
             postDate:today,
-            isAd:null
+            isAd:null,
+            isVerify:isVerify
         }
         fetch(`https://fi-car-server.vercel.app/products`, {
             method: 'POST',
@@ -90,14 +98,20 @@ const AddProduct = () => {
         .then(res => res.json())
         .then( data => {
             console.log(data);
+            setSpinner(false);
             toast('Products add successfully');
             navigate('/myproducts');
         })
-
     }
 
     return (
         <div className='mx-4 my-3'>
+            {
+                spinner &&
+                <div className='absolute flex w-full'>
+                    <div className="w-16 h-16 border-4 mx-auto border-dashed rounded-full animate-spin border-primary"></div>
+                </div>
+            }
             <form onSubmit={handleSubmit(handleOnSubmit)}>
                 <h1 className='text-4xl text-white mt-5 font-bold text-center'>Add product</h1>
                 <Fade right cascade delay={100}>
